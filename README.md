@@ -9,7 +9,7 @@
 ```python
 from bincentive_trader.client import TraderClient
 
-email = 'me@exambple.com'
+email = 'me@example.com'
 password = 'super secret'
 testing = True  # Change this to False if you're using mainnet. 
 
@@ -21,7 +21,7 @@ Available clients methods are:
 - get_strategy_list(timeout=None)
 - get_exchange_list(timeout=None)
 - add_market_order(strategy_id, exchange_id, base_currency, quote_currency, side, amount, leverage=None, timeout=None)
-- get_history_list(strategy_id, begin_time, end_time, timeout=None)
+- get_history_list(strategy_id, begin_time, end_time, account_type='real', timeout=None)
 - add_api_key(api_key, api_secret_key, exchange_id, timeout=None)
 - get_api_key_list(timeout=None)
 - delete_api_key(exchange_id, timeout=None)

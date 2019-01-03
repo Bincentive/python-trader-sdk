@@ -107,11 +107,12 @@ class TraderClient(object):
         self._post(endpoint, json=payload, timeout=timeout)
         return True
 
-    def get_history_list(self, strategy_id, begin_time, end_time, timeout=None):
+    def get_history_list(self, strategy_id, begin_time, end_time, account_type='real', timeout=None):
         """Get order history list.
         :param strategy_id: int
         :param begin_time: datetime object
         :param end_time: datetime object
+        :param account_type: 'real' or 'virtual'
         :param timeout: request timeout
         :return: history list
         """
@@ -121,7 +122,8 @@ class TraderClient(object):
         payload = {
             'strategyId': strategy_id,
             'beginTime': convert_start_time,
-            'endTime': convert_end_time
+            'endTime': convert_end_time,
+            'accountType': account_type,
         }
         r = self._post(endpoint, json=payload, timeout=timeout)
         return r.json()['data']
