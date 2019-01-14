@@ -12,7 +12,7 @@ from bincentive_trader.client import TraderClient
 email = 'me@example.com'
 password = 'super secret'
 
-client = TraderClient(email, password)
+client = TraderClient(email, password, False)
 
 ```
 
