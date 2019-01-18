@@ -70,19 +70,20 @@ class TraderClient(object):
         return self._request('POST', endpoint, timeout, json=json)
 
     def get_strategy_list(self, timeout=None):
+        """Gets the list of approved strategies."""
         endpoint = self.TRADER_ENDPOINT + 'api/trader/getApprovedStrategyList'
         r = self._post(endpoint, timeout=timeout)
         return r.json()['data']
 
     def get_exchange_list(self, timeout=None):
-        """Get a list of exchange information."""
+        """Gets the list of exchanges currently active."""
         endpoint = self.TRADER_ENDPOINT + 'api/common/getActiveExchangeList'
         r = self._post(endpoint, timeout=timeout)
         return r.json()['data']
 
     def add_market_order(self, strategy_id, exchange_id, base_currency, quote_currency, side, amount,
                          leverage=None, timeout=None):
-        """Add a market order for a specific strategy.
+        """Adds an order for a specific strategy."""
         :param strategy_id: int
         :param exchange_id: int
         :param base_currency: e.g., 'BTC'
@@ -108,7 +109,7 @@ class TraderClient(object):
         return True
 
     def get_history_list(self, strategy_id, begin_time, end_time, account_type='real', timeout=None):
-        """Get order history list.
+        """Gets the historical data of all transactions.
         :param strategy_id: int
         :param begin_time: datetime object
         :param end_time: datetime object
@@ -129,7 +130,7 @@ class TraderClient(object):
         return r.json()['data']
 
     def add_api_key(self, api_key, api_secret_key, exchange_id, timeout=None):
-        """Return True if successfully added api key."""
+        """Adds all the keys of each transaction."""
         endpoint = self.TRADER_ENDPOINT + 'api/member/addApiKey'
         payload = {
             'apiKey': api_key,
@@ -142,14 +143,14 @@ class TraderClient(object):
         return True
 
     def get_api_key_list(self, timeout=None):
-        """Get import api key list.
+        """Gets API key list.
         """
         endpoint = self.TRADER_ENDPOINT + 'api/member/getApiKeyList'
         r = self._post(endpoint, timeout=timeout)
         return r.json()['data']
 
     def delete_api_key(self, exchange_id, timeout=None):
-        """Delete exchange api key.
+        """Deletes all the keys of a transaction.
         :param exchange_id: int
         :param timeout: request timeout
         :return: True if api key is deleted.
