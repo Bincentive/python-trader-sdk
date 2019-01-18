@@ -43,7 +43,7 @@ class TraderClient(object):
         })
 
         self.pubkey, _ = pgpy.PGPKey.from_blob(r.json()['data']['publicKey'])
-        # get subkey for encryption
+        # gets subkey for encryption
         for _, v in self.pubkey.subkeys.items():
             self.subkey = v
             break
