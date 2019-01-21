@@ -82,7 +82,7 @@ class TraderClient(object):
         return r.json()['data']
 
     def add_market_order(self, strategy_id, exchange_id, base_currency, quote_currency, side, amount,
-                         leverage=None, timeout=None):
+                         leverage, timeout=None):
         """Add a market order for a specific strategy.
         :param strategy_id: int
         :param exchange_id: int
@@ -90,7 +90,8 @@ class TraderClient(object):
         :param quote_currency: e.g., 'USDT'
         :param side: 'BUY' or 'SELL'
         :param amount: the amount to sell or buy
-        :param leverage: bitmex exchange leverage
+        :param leverage: Bitmex exchange leverage. This parameter is used only on Bitmex exchange and can be set
+                         to `None` if using other exchanges.
         :param timeout: request timeout
         :return: Order number or None if no order is created.
         """
