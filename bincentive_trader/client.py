@@ -91,7 +91,7 @@ class TraderClient(object):
         :param amount: the amount to sell or buy
         :param leverage: bitmex exchange leverage
         :param timeout: request timeout
-        :return: True if order is added.
+        :return: Order number or None if no order is created.
         """
         endpoint = self.TRADER_ENDPOINT + 'api/order/addOrder'
         payload = {
@@ -104,8 +104,11 @@ class TraderClient(object):
             'leverage': leverage,
             'orderType': 'MARKET',
         }
-        self._post(endpoint, json=payload, timeout=timeout)
-        return True
+        r = self._post(endpoint, json=payload, timeout=timeout)
+        if r.status_code == 200:
+            return r.json()['data']['orderId']
+        else:
+            return None
 
     def get_history_list(self, strategy_id, begin_time, end_time, account_type='real', timeout=None):
         """Get order history list.
