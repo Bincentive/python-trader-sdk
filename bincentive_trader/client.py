@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import tzlocal
 import pgpy
 import requests
 
@@ -113,12 +114,18 @@ class TraderClient(object):
     def get_history_list(self, strategy_id, begin_time, end_time, account_type='real', timeout=None):
         """Get order history list.
         :param strategy_id: int
-        :param begin_time: datetime object
-        :param end_time: datetime object
+        :param begin_time: datetime object. If no tzinfo is provided, defaults to local timezone.
+        :param end_time: datetime object. If no tzinfo is provided, defaults to local timezone.
         :param account_type: 'real' or 'virtual'
         :param timeout: request timeout
         :return: history list
         """
+        local_tz = tzlocal.get_localzone()
+        if begin_time.tzinfo is None:
+            begin_time = begin_time.astimezone(local_tz)
+        if end_time.tzinfo is None:
+            end_time = end_time.astimezone(local_tz)
+
         convert_start_time = begin_time.isoformat()
         convert_end_time = end_time.isoformat()
         endpoint = self.TRADER_ENDPOINT + 'api/order/getHistoryList'

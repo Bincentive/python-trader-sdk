@@ -8,5 +8,6 @@ setup(
     install_requires=[
         'requests>=2.21',
         'pgpy>=0.4.3',
+        'tzlocal>=1.5.1'
     ]
 )
