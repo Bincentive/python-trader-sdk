@@ -93,7 +93,7 @@ class TraderClient(object):
         :param leverage: Bitmex exchange leverage. This parameter is used only on Bitmex exchange and can be set
                          to `None` if using other exchanges.
         :param timeout: request timeout
-        :return: Order number or None if no order is created.
+        :return: Signal id or None if no order was created.
         """
         endpoint = self.TRADER_ENDPOINT + 'api/order/addOrder'
         payload = {
@@ -108,7 +108,7 @@ class TraderClient(object):
         }
         r = self._post(endpoint, json=payload, timeout=timeout)
         if r.status_code == 200:
-            return r.json()['data']['orderId']
+            return r.json()['data']['signalId']
         else:
             return None
 
