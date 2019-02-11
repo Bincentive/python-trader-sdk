@@ -75,7 +75,7 @@ Adds an order for a specific strategy
 
 <a name="BincentiveClient+get_history_list"></a>
 
-### bincentiveClient.get_history_list(strategy_id, begin_time, end_time, account_type='real', timeout=None)
+### bincentiveClient.get_history_list(strategy_id, begin_time, end_time, account_type='real')
 Gets the historical data of all transactions
 
 **Kind**: instance method of [<code>BincentiveClient</code>](#BincentiveClient)  
@@ -83,11 +83,24 @@ Gets the historical data of all transactions
 | Param | Type |
 | --- | --- |
 | strategy_id | <code>number</code> | 
-| begin_time | <code>string</code> | 
-| end_time | <code>string</code> | 
+| begin_time | <code>datetime</code> | 
+| end_time | <code>datetime</code> | 
 | account_type | <code>string</code> | 
 
+account_type description: 
+  - 'virtual' means signal send to bincentive
+  - 'real' means order send to exchange
 
+sample code
+
+```python
+from datetime import datetime
+begin = datetime(2019, 1, 1, 6, 0, 0)
+end = datetime.now()
+strategy_id = 100342
+history = client.get_history_list(strategy_id, begin, end)
+
+```
  
 <a name="BincentiveClient+add_api_key"></a>
 
