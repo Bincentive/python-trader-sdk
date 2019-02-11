@@ -94,9 +94,11 @@ account_type description:
 sample code
 
 ```python
+import pytz
 from datetime import datetime
-begin = datetime(2019, 1, 1, 6, 0, 0)
-end = datetime.now()
+us = pytz.timezone('US/Pacific')
+begin = datetime(2019, 1, 1, 6, 0, 0).replace(tzinfo=us)
+end = datetime.now().replace(tzinfo=us)
 strategy_id = 100342
 history = client.get_history_list(strategy_id, begin, end)
 
