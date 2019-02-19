@@ -172,3 +172,34 @@ class TraderClient(object):
         }
         self._post(endpoint, json=payload, timeout=timeout)
         return True
+
+    def get_account_asset(self, strategy_id, account_type='virtual', timeout=None):
+        """Get account asset.
+        :param strategy_id: int
+        :param account_type: 'real' or 'virtual'
+        :param timeout: request timeout
+        :return: account asset
+        """
+
+        endpoint = self.TRADER_ENDPOINT + 'api/trader/getAccountAsset'
+        payload = {
+            'strategyId': strategy_id,
+            'accountType': account_type,
+        }
+        r = self._post(endpoint, json=payload, timeout=timeout)
+        return r.json()['data']
+
+    def get_exchange_symbol_list(self, exchange_id, timeout=None):
+        """Get exchange symbol list.
+        :param exchange_id: int
+        :param timeout: request timeout
+        :return: exchange symbol list
+        """
+
+        endpoint = self.TRADER_ENDPOINT + 'api/common/getExchangeSymbolList'
+        payload = {
+            "exchangeId": exchange_id,
+        }
+        r = self._post(endpoint, json=payload, timeout=timeout)
+        return r.json()['data']
+
