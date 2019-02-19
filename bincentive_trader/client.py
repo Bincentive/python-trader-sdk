@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import tzlocal
 import pgpy
 import requests
 
@@ -82,17 +83,18 @@ class TraderClient(object):
         return r.json()['data']
 
     def add_market_order(self, strategy_id, exchange_id, base_currency, quote_currency, side, amount,
-                         leverage=None, timeout=None):
-        """Adds an order for a specific strategy."""
+                         leverage=1, timeout=None):
+        """Adds a market order for a specific strategy."""
         :param strategy_id: int
         :param exchange_id: int
         :param base_currency: e.g., 'BTC'
         :param quote_currency: e.g., 'USDT'
         :param side: 'BUY' or 'SELL'
         :param amount: the amount to sell or buy
-        :param leverage: bitmex exchange leverage
+        :param leverage: Bitmex exchange leverage. This parameter is used only on Bitmex exchange and can be set
+                         to `None` if using other exchanges.
         :param timeout: request timeout
-        :return: True if order is added.
+        :return: Signal id or None if no order was created.
         """
         endpoint = self.TRADER_ENDPOINT + 'api/order/addOrder'
         payload = {
@@ -105,18 +107,27 @@ class TraderClient(object):
             'leverage': leverage,
             'orderType': 'MARKET',
         }
-        self._post(endpoint, json=payload, timeout=timeout)
-        return True
+        r = self._post(endpoint, json=payload, timeout=timeout)
+        if r.status_code == 200:
+            return r.json()['data']['signalId']
+        else:
+            return None
 
     def get_history_list(self, strategy_id, begin_time, end_time, account_type='real', timeout=None):
         """Gets the historical data of all transactions.
         :param strategy_id: int
-        :param begin_time: datetime object
-        :param end_time: datetime object
+        :param begin_time: datetime object. If no tzinfo is provided, defaults to local timezone.
+        :param end_time: datetime object. If no tzinfo is provided, defaults to local timezone.
         :param account_type: 'real' or 'virtual'
         :param timeout: request timeout
         :return: history list
         """
+        local_tz = tzlocal.get_localzone()
+        if begin_time.tzinfo is None:
+            begin_time = begin_time.astimezone(local_tz)
+        if end_time.tzinfo is None:
+            end_time = end_time.astimezone(local_tz)
+
         convert_start_time = begin_time.isoformat()
         convert_end_time = end_time.isoformat()
         endpoint = self.TRADER_ENDPOINT + 'api/order/getHistoryList'
