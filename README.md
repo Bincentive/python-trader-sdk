@@ -36,6 +36,8 @@ Bincentive Trader Client
     * [.add_api_key(api_key, api_secret_key, exchange_id, timeout=None)](#BincentiveClient+add_api_key)
     * [.get_api_key_list(timeout=None)](#BincentiveClient+get_api_key_list)
     * [.delete_api_key(exchange_id, timeout=None)](#BincentiveClient+delete_api_key)
+    * [.get_account_asset(self, strategy_id, account_type='virtual', timeout=None)](#BincentiveClient+get_account_asset)
+    * [.get_exchange_symbol_list(self, exchange_id, timeout=None)](#BincentiveClient+get_exchange_symbol_list)
   
 
 <a name="new_BincentiveClient_new"></a>
@@ -135,6 +137,54 @@ Deletes all the keys of a transaction
 | Param | Type |
 | --- | --- |
 | exchangeId | <code>number</code> | 
+
+
+<a name="BincentiveClient+get_account_asset"></a>
+
+### bincentiveClient.get_account_asset(self, strategy_id, account_type='virtual', timeout=None)
+Gets the historical data of account asset
+
+**Kind**: instance method of [<code>BincentiveClient</code>](#BincentiveClient)  
+
+| Param | Type |
+| --- | --- |
+| strategy_id | <code>number</code> | 
+| account_type | <code>string</code> | 
+
+account_type description: 
+  - 'virtual' means signal send to bincentive
+  - 'real' means order send to exchange
+
+sample code
+
+```python
+strategy_id = 100342
+account_asset = client.get_account_asset(strategy_id)
+
+```
+
+
+<a name="BincentiveClient+get_exchange_symbol_list"></a>
+
+### bincentiveClient.get_exchange_symbol_list(self, exchange_id, timeout=None)
+Gets all symbol of the exchange
+
+**Kind**: instance method of [<code>BincentiveClient</code>](#BincentiveClient)  
+
+| Param | Type |
+| --- | --- |
+| exchange_id | <code>number</code> | 
+
+
+sample code
+
+```python
+exchange_id = 3
+exchange_symbol = client.get_exchange_symbol_list(exchange_id)
+
+```
+
+
 
 
 
