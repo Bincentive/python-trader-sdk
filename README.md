@@ -38,6 +38,7 @@ Bincentive Trader Client
     * [.delete_api_key(exchange_id, timeout=None)](#BincentiveClient+delete_api_key)
     * [.get_account_asset(self, strategy_id, account_type='virtual', timeout=None)](#BincentiveClient+get_account_asset)
     * [.get_exchange_symbol_list(self, exchange_id, timeout=None)](#BincentiveClient+get_exchange_symbol_list)
+    * [.get_currency_list(self, timeout=None)](#BincentiveClient+get_currency_list)
   
 
 <a name="new_BincentiveClient_new"></a>
@@ -184,8 +185,19 @@ exchange_symbol = client.get_exchange_symbol_list(exchange_id)
 
 ```
 
+<a name="BincentiveClient+get_currency_list"></a>
+
+### bincentiveClient.get_currency_list(self, timeout=None)
+Gets the currency_id corresponding currency_name
+
+**Kind**: instance method of [<code>BincentiveClient</code>](#BincentiveClient)  
 
 
+sample code
 
+```python
 
+currency_list = client.get_currency_list()
+
+```
 

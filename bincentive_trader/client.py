@@ -202,3 +202,16 @@ class TraderClient(object):
         r = self._post(endpoint, json=payload, timeout=timeout)
         return r.json()['data']
 
+    def get_currency_list(self, timeout=None):
+        """Get exchange symbol list.
+        :param exchange_id: int
+        :param timeout: request timeout
+        :return: exchange symbol list
+        """
+
+        endpoint = self.TRADER_ENDPOINT + 'api/common/getCurrencyList'
+        payload = {
+        }
+        r = self._post(endpoint, json=payload, timeout=timeout)
+        return r.json()['data']
+
