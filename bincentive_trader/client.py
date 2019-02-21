@@ -210,8 +210,6 @@ class TraderClient(object):
         """
 
         endpoint = self.TRADER_ENDPOINT + 'api/common/getCurrencyList'
-        payload = {
-        }
-        r = self._post(endpoint, json=payload, timeout=timeout)
+        r = self._post(endpoint, timeout=timeout)
         return r.json()['data']
 
