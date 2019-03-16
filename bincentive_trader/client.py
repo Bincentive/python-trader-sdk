@@ -84,7 +84,7 @@ class TraderClient(object):
 
     def add_market_order(self, strategy_id, exchange_id, base_currency, quote_currency, side, amount,
                          leverage=1, timeout=None):
-        """Adds a market order for a specific strategy."""
+        """Adds a market order for a specific strategy.
         :param strategy_id: int
         :param exchange_id: int
         :param base_currency: e.g., 'BTC'
