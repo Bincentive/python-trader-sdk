@@ -18,6 +18,7 @@ class TraderClient(object):
         if testing:
             self.LOGIN_ENDPOINT = 'https://fs-sitapi.bincentive.com/member/api/member/login'
             self.TRADER_ENDPOINT = 'https://qdapps-sitapi.bincentive.com/'
+            self.SETPOSITION_ENDPOINT = 'https://bi-gateway-go-dev.bincentive.com/api/v1/strategy/SetPosition'
         else:
             self.LOGIN_ENDPOINT = 'https://fs-api.bincentive.com/member/api/member/login'
             self.TRADER_ENDPOINT = 'https://qdapps-proapi.bincentive.com/'
@@ -214,3 +215,22 @@ class TraderClient(object):
         r = self._post(endpoint, timeout=timeout)
         return r.json()['data']
 
+    def set_position(self, strategy_id, Ratio, LimitPrice, timeout=None):
+        """Adds a market order for a specific strategy.
+        :param strategy_id: 
+        :param Ratio: 
+        :param LimitPrice: 
+        :return: Signal id or None if no order was created.
+        """
+        endpoint = self.SETPOSITION_ENDPOINT
+        payload = {
+            'strategyId': strategy_id,
+            'Ratio': Ratio,
+            'LimitPrice': LimitPrice
+            }
+        r = self._post(endpoint, json=payload, timeout=timeout)
+        if r.status_code == 200:
+            return r.json()['data']['id']
+        else:
+            return None        
+        
