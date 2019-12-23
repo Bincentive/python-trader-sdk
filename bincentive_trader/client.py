@@ -16,7 +16,7 @@ class TraderClient(object):
     def __init__(self, email, password, testing=True):
         if testing:
             self.LOGIN_ENDPOINT = 'https://fs-sitapi.bincentive.com/member/api/member/login'
-            self.TRADER_ENDPOINT = 'https://bi-gateway-go-rd.bincentive.com'
+            self.TRADER_ENDPOINT = 'https://bi-gateway-go-sit.bincentive.com'
         else:
             self.LOGIN_ENDPOINT = 'https://fs-api.bincentive.com/member/api/member/login'
             self.TRADER_ENDPOINT = 'https://bi-gateway-go-prod.bincentive.com'
